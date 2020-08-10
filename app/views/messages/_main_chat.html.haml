@@ -5,35 +5,47 @@
       .chat-main__header__left
         %ul.chat-main__header__left__lists
           %li.chat-main__header__left__lists__1
-            test
+            #{@group.name}
           %li.chat-main__header__left__lists__2
-            Member : masa
+            Member：
+            - @group.users.each do |u|
+              =u.name
       .chat-main__header__right
-        = link_to '#', class: "chat-main__header__right__edit" do
+        = link_to edit_group_path(@group), class: "chat-main__header__right__edit" do
           Edit
 
   .chat-main__message
-    .chat-main__message__lists
-      .chat-main__message__lists__name
-        masa
-      .chat-main__message__lists__day
-        2020/8/1(sun) 17:43:01
-    %p.chat-main__message__text
-      おはよう!
+    = render @messages
+    -# .chat-main__message__lists
+    -#   .chat-main__message__lists__name
+    -#     masa
+    -#   .chat-main__message__lists__day
+    -#     2020/8/1(sun) 17:43:01
+    -# %p.chat-main__message__text
+    -#   おはよう!
 
-    .chat-main__message__lists
-      .chat-main__message__lists__name
-        masa
-      .chat-main__message__lists__day
-        2020/8/1(sun) 17:43:01
-    %p.chat-main__message__text
-      今日は夜から雨  
+    -# .chat-main__message__lists
+    -#   .chat-main__message__lists__name
+    -#     masa
+    -#   .chat-main__message__lists__day
+    -#     2020/8/1(sun) 17:43:01
+    -# %p.chat-main__message__text
+    -#   今日は夜から雨  
       
   .chat-main__message-form
-    .form
-      %input.message-footer-form{:placeholder => "type a message", :type => "text"}
-      %label{class: "message-footer"}
+    = form_with model: [@group, @message], html: {class: "form"}, local: true do |f|
+      = f.text_field :content, class: 'message-footer-form', placeholder: 'type a message'
+      = f.label :image, class: 'message-footer' do
         = icon('far', 'image', class: 'message-footer-icon')
-        %input{type: "file", class: "footer-file"}
+        = f.file_field :image, class: 'footer-file'
+      = f.submit 'Send', class: 'submit'
+
+
+
+    -# .form
+    -#   %input.message-footer-form{:placeholder => "type a message", :type => "text"}
+    -#   %label{class: "message-footer"}
+    -#     = icon('far', 'image', class: 'message-footer-icon')
+    -#     %input{type: "file", class: "footer-file"}
           
-      %input(type="submit" value="Send" class="submit")/
+    -#   %input(type="submit" value="Send" class="submit")/
