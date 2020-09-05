@@ -1,4 +1,4 @@
-.MessageBox
+.MessageBox{data: {message: {id: message.id}}}
   .MessageInfo
     .MessageInfo__userName
       = message.user.name
@@ -9,4 +9,4 @@
       %p.Message__content
         = message.content
     = image_tag message.image.url, class: 'Message__image' if message.image.present?
-    
+  
